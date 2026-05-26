@@ -24,10 +24,10 @@ function validate(state: FormState): FieldErrors {
     errors.orderProcessingHoursPerDay = "Value cannot exceed 200 hours per day.";
   }
 
-  const errors_ = parseFloat(state.monthlyProductionErrors);
-  if (state.monthlyProductionErrors === "" || isNaN(errors_) || errors_ < 0) {
+  const errorCount = parseFloat(state.monthlyProductionErrors);
+  if (state.monthlyProductionErrors === "" || isNaN(errorCount) || errorCount < 0) {
     errors.monthlyProductionErrors = "Enter 0 or a positive number.";
-  } else if (errors_ > 10000) {
+  } else if (errorCount > 10000) {
     errors.monthlyProductionErrors = "Value cannot exceed 10,000 errors per month.";
   }
 

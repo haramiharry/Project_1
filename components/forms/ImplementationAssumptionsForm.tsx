@@ -113,9 +113,17 @@ export default function ImplementationAssumptionsForm({
     // Stays in edit mode — does not auto-lock.
   }
 
+  function parseFormState(f: FormState): ImplementationAssumptions {
+    return {
+      implementationTimelineMonths: parseInt(f.implementationTimelineMonths, 10),
+      licenseCostBand: f.licenseCostBand,
+      changeManagementOverheadPercent: parseFloat(f.changeManagementOverheadPercent),
+    };
+  }
+
   function handleContinue() {
     if (!isEditing) {
-      onComplete(DEFAULTS);
+      onComplete(parseFormState(form));
       return;
     }
 
@@ -124,11 +132,7 @@ export default function ImplementationAssumptionsForm({
     setErrors(errs);
     if (Object.keys(errs).length > 0) return;
 
-    onComplete({
-      implementationTimelineMonths: parseInt(form.implementationTimelineMonths, 10),
-      licenseCostBand: form.licenseCostBand,
-      changeManagementOverheadPercent: parseFloat(form.changeManagementOverheadPercent),
-    });
+    onComplete(parseFormState(form));
   }
 
   return (

@@ -72,6 +72,7 @@ export default function ROIResultsPanel({ roi, breakdown, onStartOver }: ROIResu
 
   async function handleExportPDF() {
     setIsPdfGenerating(true);
+    try {
     const { default: jsPDF } = await import("jspdf");
     const doc = new jsPDF({ unit: "mm", format: "a4", orientation: "portrait" });
 
@@ -82,23 +83,23 @@ export default function ROIResultsPanel({ roi, breakdown, onStartOver }: ROIResu
     let y = 18;
 
     // ---- helpers scoped to this call ----
-    function setStyle(
+    const setStyle = (
       size: number,
       weight: "normal" | "bold",
       r: number,
       g: number,
       b: number
-    ) {
+    ) => {
       doc.setFontSize(size);
       doc.setFont("helvetica", weight);
       doc.setTextColor(r, g, b);
-    }
+    };
 
-    function rule(yPos: number) {
+    const rule = (yPos: number) => {
       doc.setDrawColor(203, 213, 225);
       doc.setLineWidth(0.3);
       doc.line(margin, yPos, right, yPos);
-    }
+    };
 
     // ---- Title ----
     setStyle(15, "bold", 30, 41, 59);
@@ -236,7 +237,11 @@ export default function ROIResultsPanel({ roi, breakdown, onStartOver }: ROIResu
     });
 
     doc.save("erp-roi-summary.pdf");
-    setIsPdfGenerating(false);
+    } catch {
+      // jsPDF failure — button resets via finally
+    } finally {
+      setIsPdfGenerating(false);
+    }
   }
 
   return (
@@ -275,12 +280,34 @@ export default function ROIResultsPanel({ roi, breakdown, onStartOver }: ROIResu
           <p className="mt-1 text-xs text-blue-400">to break even</p>
         </div>
 
-        <div className="rounded-xl border border-green-200 bg-green-50 p-4">
-          <p className="text-xs font-medium text-green-600 mb-1">3-Year ROI</p>
-          <p className="text-xl font-bold text-green-700 leading-tight tabular-nums">
+        <div
+          className={`rounded-xl border p-4 ${
+            roi.roiPercent >= 0
+              ? "border-green-200 bg-green-50"
+              : "border-amber-200 bg-amber-50"
+          }`}
+        >
+          <p
+            className={`text-xs font-medium mb-1 ${
+              roi.roiPercent >= 0 ? "text-green-600" : "text-amber-600"
+            }`}
+          >
+            3-Year ROI
+          </p>
+          <p
+            className={`text-xl font-bold leading-tight tabular-nums ${
+              roi.roiPercent >= 0 ? "text-green-700" : "text-amber-700"
+            }`}
+          >
             {formatPercent(roi.roiPercent)}
           </p>
-          <p className="mt-1 text-xs text-green-400">over 36 months</p>
+          <p
+            className={`mt-1 text-xs ${
+              roi.roiPercent >= 0 ? "text-green-400" : "text-amber-400"
+            }`}
+          >
+            over 36 months
+          </p>
         </div>
       </div>
 

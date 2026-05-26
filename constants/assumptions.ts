@@ -39,7 +39,7 @@ export const DEFAULT_LICENSE_COST_BAND: LicenseCostBand = "150k_to_300k";
 
 // Midpoint USD values for each license cost band.
 // Used to calculate total investment when exact pricing is not known.
-export const LICENSE_COST_BAND_MIDPOINTS_USD: Record<string, number> = {
+export const LICENSE_COST_BAND_MIDPOINTS_USD: Record<LicenseCostBand, number> = {
   "50k_to_150k": 100_000,
   "150k_to_300k": 225_000,
   "300k_to_500k": 400_000,
@@ -52,6 +52,9 @@ export const LICENSE_COST_BAND_MIDPOINTS_USD: Record<string, number> = {
 // reduce the shrinkage and obsolescence that cause write-offs in apparel ops.
 // Conservative: industry benchmarks cite 60–70% recovery; using the lower bound.
 export const INVENTORY_WRITEOFF_RECOVERY_RATE = 0.60;
+
+// Proportion of production error cost eliminated by ERP quality controls and traceability.
+export const PRODUCTION_ERROR_RECOVERY_RATE = 0.55;
 
 // Proportion of delivery delay cost recoverable through improved scheduling.
 // Based on OTD improvement benchmarks for apparel ERP implementations.

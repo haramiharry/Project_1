@@ -12,6 +12,7 @@ import {
   SAVINGS_RAMP,
   LICENSE_COST_BAND_MIDPOINTS_USD,
   INVENTORY_WRITEOFF_RECOVERY_RATE,
+  PRODUCTION_ERROR_RECOVERY_RATE,
   DELIVERY_DELAY_RECOVERY_RATE,
   COST_PER_DELIVERY_DELAY_DAY_USD,
   REPORTING_AUTOMATION_RATE,
@@ -165,12 +166,11 @@ function calculateFullYearSavings(inputs: CalculatorInputs): number {
     REPORTING_AUTOMATION_RATE;
 
   // Production errors: ERP quality controls and traceability reduce error rate.
-  // Using DELIVERY_DELAY_RECOVERY_RATE (55%) as a conservative error-reduction proxy.
   const productionErrorSaving =
     painPoints.monthlyProductionErrors *
     COST_PER_PRODUCTION_ERROR_USD *
     12 *
-    DELIVERY_DELAY_RECOVERY_RATE;
+    PRODUCTION_ERROR_RECOVERY_RATE;
 
   // Inventory write-off: ERP visibility recovers 60% of current write-off losses.
   const inventoryWriteOffSaving =
