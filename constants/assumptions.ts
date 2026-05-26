@@ -41,17 +41,21 @@ export const LICENSE_COST_BAND_MIDPOINTS_USD: Record<string, number> = {
   "above_500k": 650_000,
 };
 
-// Proportion of inventory value that ERP is expected to recover from write-offs.
-// Conservative: ERP visibility and cycle-count automation typically recovers 60-70%
-// of the write-off gap. Using 60% to stay conservative.
+// Direction: of the annual inventory write-off loss the user reports, ERP is expected
+// to eliminate this fraction of it. Example: $100K write-off × 0.60 = $60K annual saving.
+// Mechanism: improved stock visibility, automated cycle counts, and reorder accuracy
+// reduce the shrinkage and obsolescence that cause write-offs in apparel ops.
+// Conservative: industry benchmarks cite 60–70% recovery; using the lower bound.
 export const INVENTORY_WRITEOFF_RECOVERY_RATE = 0.60;
 
 // Proportion of delivery delay cost recoverable through improved scheduling.
 // Based on OTD improvement benchmarks for apparel ERP implementations.
 export const DELIVERY_DELAY_RECOVERY_RATE = 0.55;
 
-// Average cost per day of late delivery: expedite freight, penalties, lost margin.
-// Conservative estimate for mid-market apparel.
+// Cost per delayed order per day of delay: expedite freight, retailer penalties, lost margin.
+// Unit is per order per day — not an aggregate across all delayed orders.
+// Usage: avgDeliveryDelayDays × COST_PER_DELIVERY_DELAY_DAY_USD × monthlyDelayedOrders × 12
+// Conservative estimate for mid-market apparel; premium/luxury segments run higher.
 export const COST_PER_DELIVERY_DELAY_DAY_USD = 150;
 
 // Proportion of manual reporting hours that ERP automation eliminates.
