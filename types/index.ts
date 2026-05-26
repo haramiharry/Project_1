@@ -35,9 +35,15 @@ export interface CompanyProfile {
 export interface PainPoints {
   orderProcessingHoursPerDay: number;
   monthlyProductionErrors: number;
-  inventoryWriteOffPercent: number; // percentage, e.g. 3.5 means 3.5%
+  // Percentage of CompanyProfile.currentInventoryValue written off annually.
+  // e.g. 3.5 means 3.5% of inventory value lost to shrinkage/obsolescence per year.
+  // NOT a percentage of revenue.
+  inventoryWriteOffPercent: number;
   manualReportingHoursPerWeek: number;
   avgDeliveryDelayDays: number;
+  // Number of orders per month that incur a delivery delay.
+  // Used with avgDeliveryDelayDays × COST_PER_DELIVERY_DELAY_DAY_USD to compute annual delay cost.
+  monthlyDelayedOrders: number;
 }
 
 export interface TeamSize {
