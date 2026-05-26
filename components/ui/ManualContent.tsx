@@ -18,8 +18,8 @@ export default function ManualContent() {
       </h2>
       <p className="text-slate-600 text-sm leading-relaxed">
         You do not need exact figures. Estimates are sufficient and expected. The tool is designed
-        for a discovery conversation, not an audit. If a prospect says &lsquo;I don&rsquo;t know
-        exactly,&rsquo; use the guidance in each field description below to help them estimate.
+        for a discovery conversation, not an audit. If a prospect says ‘I don’t know
+        exactly,’ use the guidance in each field description below to help them estimate.
       </p>
       <p className="font-medium text-slate-800 text-sm leading-relaxed mt-3">
         Have these ready before opening the tool:
@@ -69,7 +69,7 @@ export default function ManualContent() {
         </p>
         <p className="text-slate-600 text-sm leading-relaxed">
           <span className="font-medium text-slate-800">Annual Revenue Band: </span>
-          Select the band covering the prospect&rsquo;s annual revenue. Used as a proxy for scaling
+          Select the band covering the prospect's annual revenue. Used as a proxy for scaling
           certain cost assumptions.
         </p>
         <p className="text-slate-600 text-sm leading-relaxed">
@@ -171,7 +171,7 @@ export default function ManualContent() {
         </p>
         <p className="text-slate-600 text-sm leading-relaxed">
           <span className="font-medium text-slate-800">License Cost Band: </span>
-          Select the band matching your vendor&rsquo;s pricing or best estimate. The midpoint of the
+          Select the band matching your vendor's pricing or best estimate. The midpoint of the
           selected band is used in the investment calculation.
         </p>
         <p className="text-slate-600 text-sm leading-relaxed">
@@ -191,7 +191,7 @@ export default function ManualContent() {
       <p className="text-slate-600 text-sm leading-relaxed">
         Four summary numbers: Annual Cost of Inefficiency (your anchor number), Total ERP
         Investment (license midpoint plus change management), Payback Period (months to break even,
-        or &lsquo;Beyond 36 months&rsquo;), and 3-Year ROI percentage. Negative ROI displays in
+        or 'Beyond 36 months'), and 3-Year ROI percentage. Negative ROI displays in
         amber, not green.
       </p>
       <h3 className="text-slate-800 font-semibold text-sm mt-5 mb-1">Savings Timeline</h3>
@@ -208,7 +208,7 @@ export default function ManualContent() {
       <h3 className="text-slate-800 font-semibold text-sm mt-5 mb-1">Assumptions Footnote</h3>
       <p className="text-slate-600 text-sm leading-relaxed">
         All financial constants used in the calculation. This section exists to handle the
-        &lsquo;where do these numbers come from&rsquo; question from a CFO or finance director.
+        'where do these numbers come from' question from a CFO or finance director.
       </p>
 
       {/* ── Downloading the PDF ──────────────────────────────────────────── */}
@@ -234,7 +234,7 @@ export default function ManualContent() {
         <p className="text-slate-600 text-sm leading-relaxed">
           The tool is most powerful when the prospect watches their own numbers appear in real time.
           Filling it in yourself before the meeting and showing them the output removes the
-          &lsquo;their data, their result&rsquo; effect that drives urgency.
+          'their data, their result' effect that drives urgency.
         </p>
       </div>
 
@@ -264,7 +264,7 @@ export default function ManualContent() {
         </p>
         <p className="text-slate-600 text-sm leading-relaxed">
           When a CFO pushes back on a number, open the footnote. Every assumption is listed with its
-          value. &lsquo;Here is exactly what we assumed and why&rsquo; closes more objections than
+          value. 'Here is exactly what we assumed and why' closes more objections than
           defending the output directly.
         </p>
       </div>

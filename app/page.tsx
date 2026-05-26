@@ -10,6 +10,8 @@ import TeamSizeForm from "@/components/forms/TeamSizeForm";
 import ImplementationAssumptionsForm from "@/components/forms/ImplementationAssumptionsForm";
 import ROIResultsPanel from "@/components/ROIResultsPanel";
 import ProgressIndicator from "@/components/ui/ProgressIndicator";
+import ManualModal from "@/components/ui/ManualModal";
+import ManualContent from "@/components/ui/ManualContent";
 
 type RoiData =
   | { ok: true; roi: ReturnType<typeof calculateROIOutput>; breakdown: ReturnType<typeof calculateCostBreakdown> }
@@ -156,6 +158,7 @@ export default function Page() {
             </div>
           </div>
         </div>
+        {isManualOpen && <ManualModal onClose={() => setIsManualOpen(false)}><ManualContent /></ManualModal>}
       </div>
     </main>
   );
