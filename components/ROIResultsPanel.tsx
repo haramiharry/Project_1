@@ -154,7 +154,7 @@ export default function ROIResultsPanel({ roi, breakdown, onStartOver }: ROIResu
     y += 7;
 
     const yearCols = [margin, margin + 57, margin + 114];
-    savingsYears.forEach(({ label, ramp }, i) => {
+    savingsYears.forEach(({ label }, i) => {
       setStyle(9, "bold", 30, 41, 59);
       doc.text(label, yearCols[i], y);
     });
@@ -336,6 +336,13 @@ export default function ROIResultsPanel({ roi, breakdown, onStartOver }: ROIResu
         <h3 className="text-sm font-semibold text-slate-700 mb-4">
           Current Cost Breakdown
         </h3>
+        {costRows.every(({ value }) => value === 0) && (
+          <div className="mb-4 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3">
+            <p className="text-xs text-amber-700">
+              One or more cost drivers returned zero. Review your inputs for accuracy.
+            </p>
+          </div>
+        )}
         <div className="space-y-3">
           {costRows.map(({ label, value }) => (
             <div key={label} className="flex items-center justify-between gap-4">
@@ -388,21 +395,21 @@ export default function ROIResultsPanel({ roi, breakdown, onStartOver }: ROIResu
       </div>
 
       {/* Actions */}
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <button
+          type="button"
+          onClick={onStartOver}
+          className="order-2 sm:order-1 w-full sm:w-auto py-3 px-6 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 active:bg-slate-100 text-slate-600 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2"
+        >
+          Start Over
+        </button>
         <button
           type="button"
           onClick={handleExportPDF}
           disabled={isPdfGenerating}
-          className="w-full py-3.5 px-6 rounded-xl bg-slate-700 hover:bg-slate-800 active:bg-slate-900 disabled:bg-slate-400 disabled:cursor-not-allowed text-white text-sm font-semibold tracking-wide transition-colors focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2"
+          className="order-1 sm:order-2 w-full sm:w-auto py-3.5 px-8 rounded-xl bg-slate-700 hover:bg-slate-800 active:bg-slate-900 disabled:bg-slate-400 disabled:cursor-not-allowed text-white text-sm font-semibold tracking-wide transition-colors focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2"
         >
           {isPdfGenerating ? "Generating…" : "Download PDF Summary"}
-        </button>
-        <button
-          type="button"
-          onClick={onStartOver}
-          className="w-full py-3 px-6 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 active:bg-slate-100 text-slate-600 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2"
-        >
-          Start Over
         </button>
       </div>
     </div>
