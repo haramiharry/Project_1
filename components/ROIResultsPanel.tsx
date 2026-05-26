@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { CalculatorInputs } from "@/types";
 import { calculateROIOutput, calculateCostBreakdown } from "@/lib/roiCalculator";
 import {
@@ -35,6 +36,7 @@ export interface ROIResultsPanelProps {
 }
 
 export default function ROIResultsPanel({ inputs }: ROIResultsPanelProps) {
+  const [isPdfGenerating, setIsPdfGenerating] = useState(false);
   const roi = calculateROIOutput(inputs);
   const breakdown = calculateCostBreakdown(inputs);
 
@@ -70,6 +72,7 @@ export default function ROIResultsPanel({ inputs }: ROIResultsPanelProps) {
   ];
 
   async function handleExportPDF() {
+    setIsPdfGenerating(true);
     const { default: jsPDF } = await import("jspdf");
     const doc = new jsPDF({ unit: "mm", format: "a4", orientation: "portrait" });
 
@@ -234,6 +237,7 @@ export default function ROIResultsPanel({ inputs }: ROIResultsPanelProps) {
     });
 
     doc.save("erp-roi-summary.pdf");
+    setIsPdfGenerating(false);
   }
 
   return (
@@ -388,9 +392,10 @@ export default function ROIResultsPanel({ inputs }: ROIResultsPanelProps) {
       <button
         type="button"
         onClick={handleExportPDF}
-        className="w-full py-3.5 px-6 rounded-xl bg-slate-700 hover:bg-slate-800 active:bg-slate-900 text-white text-sm font-semibold tracking-wide transition-colors focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2"
+        disabled={isPdfGenerating}
+        className="w-full py-3.5 px-6 rounded-xl bg-slate-700 hover:bg-slate-800 active:bg-slate-900 disabled:bg-slate-400 disabled:cursor-not-allowed text-white text-sm font-semibold tracking-wide transition-colors focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2"
       >
-        Download PDF Summary
+        {isPdfGenerating ? "Generating…" : "Download PDF Summary"}
       </button>
     </div>
   );
