@@ -1,5 +1,6 @@
 // All hardcoded financial and operational assumptions live here.
 // Update this file when any baseline figure changes — no other file needs editing.
+import type { LicenseCostBand } from "@/types";
 
 // Hourly cost basis for operations staff (blended rate across planning/production/finance).
 // Source: mid-market apparel manufacturing benchmark, USD.
@@ -31,6 +32,10 @@ export const DEFAULT_IMPLEMENTATION_TIMELINE_MONTHS = 9;
 
 // Default change management overhead as a percentage of the license cost midpoint.
 export const DEFAULT_CHANGE_MANAGEMENT_OVERHEAD_PERCENT = 15;
+
+// Default license cost band shown in the locked assumptions view.
+// $150K–$300K covers the majority of mid-market apparel ERP engagements.
+export const DEFAULT_LICENSE_COST_BAND: LicenseCostBand = "150k_to_300k";
 
 // Midpoint USD values for each license cost band.
 // Used to calculate total investment when exact pricing is not known.
