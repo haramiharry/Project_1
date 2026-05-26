@@ -73,7 +73,7 @@ const ERP_STATUS_OPTIONS: {
     value: "modern_erp_partial",
     label: "Modern ERP (partial rollout)",
     description:
-      "Modern platform in place but key modules—planning, QC, or logistics—are not yet live.",
+      "Modern platform in place but key modules, planning, QC, or logistics, are not yet live.",
   },
 ];
 
