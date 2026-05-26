@@ -121,16 +121,31 @@ function validate(state: FormState): FieldErrors {
 
 export interface CompanyProfileFormProps {
   onComplete: (data: CompanyProfile) => void;
+  initialValues?: CompanyProfile;
 }
 
-export default function CompanyProfileForm({ onComplete }: CompanyProfileFormProps) {
-  const [form, setForm] = useState<FormState>({
-    industrySegment: "",
-    annualRevenueBand: "",
-    currentInventoryValue: "",
-    numberOfSites: "",
-    currentERPStatus: "",
-  });
+function toFormState(v: CompanyProfile): FormState {
+  return {
+    industrySegment: v.industrySegment,
+    annualRevenueBand: v.annualRevenueBand,
+    currentInventoryValue: String(v.currentInventoryValue),
+    numberOfSites: String(v.numberOfSites),
+    currentERPStatus: v.currentERPStatus,
+  };
+}
+
+export default function CompanyProfileForm({ onComplete, initialValues }: CompanyProfileFormProps) {
+  const [form, setForm] = useState<FormState>(
+    initialValues
+      ? toFormState(initialValues)
+      : {
+          industrySegment: "",
+          annualRevenueBand: "",
+          currentInventoryValue: "",
+          numberOfSites: "",
+          currentERPStatus: "",
+        }
+  );
   const [errors, setErrors] = useState<FieldErrors>({});
   const [attempted, setAttempted] = useState(false);
 

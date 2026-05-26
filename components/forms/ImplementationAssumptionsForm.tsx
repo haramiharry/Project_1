@@ -85,14 +85,16 @@ function LockIcon() {
 export interface ImplementationAssumptionsFormProps {
   onComplete: (data: ImplementationAssumptions) => void;
   onBack: () => void;
+  initialValues?: ImplementationAssumptions;
 }
 
 export default function ImplementationAssumptionsForm({
   onComplete,
   onBack,
+  initialValues,
 }: ImplementationAssumptionsFormProps) {
   const [isEditing, setIsEditing] = useState(false);
-  const [form, setForm] = useState<FormState>(toFormState(DEFAULTS));
+  const [form, setForm] = useState<FormState>(toFormState(initialValues ?? DEFAULTS));
   const [errors, setErrors] = useState<FieldErrors>({});
   const [attempted, setAttempted] = useState(false);
 

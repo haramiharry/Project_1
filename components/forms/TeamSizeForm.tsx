@@ -50,14 +50,27 @@ function sumHeadcount(state: FormState): number {
 export interface TeamSizeFormProps {
   onComplete: (data: TeamSize) => void;
   onBack: () => void;
+  initialValues?: TeamSize;
 }
 
-export default function TeamSizeForm({ onComplete, onBack }: TeamSizeFormProps) {
-  const [form, setForm] = useState<FormState>({
-    planningHeadcount: "",
-    productionHeadcount: "",
-    financeHeadcount: "",
-  });
+function toFormState(v: TeamSize): FormState {
+  return {
+    planningHeadcount: String(v.planningHeadcount),
+    productionHeadcount: String(v.productionHeadcount),
+    financeHeadcount: String(v.financeHeadcount),
+  };
+}
+
+export default function TeamSizeForm({ onComplete, onBack, initialValues }: TeamSizeFormProps) {
+  const [form, setForm] = useState<FormState>(
+    initialValues
+      ? toFormState(initialValues)
+      : {
+          planningHeadcount: "",
+          productionHeadcount: "",
+          financeHeadcount: "",
+        }
+  );
   const [errors, setErrors] = useState<FieldErrors>({});
   const [attempted, setAttempted] = useState(false);
 

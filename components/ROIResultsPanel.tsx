@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { CalculatorInputs } from "@/types";
-import { calculateROIOutput, calculateCostBreakdown } from "@/lib/roiCalculator";
+import { ROIOutput, CostBreakdown } from "@/types";
 import {
   BLENDED_HOURLY_RATE_USD,
   SAVINGS_RAMP,
@@ -32,13 +31,13 @@ function formatPayback(months: number): string {
 // ---------------------------------------------------------------------------
 
 export interface ROIResultsPanelProps {
-  inputs: CalculatorInputs;
+  roi: ROIOutput;
+  breakdown: CostBreakdown;
+  onStartOver: () => void;
 }
 
-export default function ROIResultsPanel({ inputs }: ROIResultsPanelProps) {
+export default function ROIResultsPanel({ roi, breakdown, onStartOver }: ROIResultsPanelProps) {
   const [isPdfGenerating, setIsPdfGenerating] = useState(false);
-  const roi = calculateROIOutput(inputs);
-  const breakdown = calculateCostBreakdown(inputs);
 
   const maxAnnualSavings = Math.max(roi.savingsYear1, roi.savingsYear2, roi.savingsYear3);
 
@@ -388,15 +387,24 @@ export default function ROIResultsPanel({ inputs }: ROIResultsPanelProps) {
         </ul>
       </div>
 
-      {/* PDF Export */}
-      <button
-        type="button"
-        onClick={handleExportPDF}
-        disabled={isPdfGenerating}
-        className="w-full py-3.5 px-6 rounded-xl bg-slate-700 hover:bg-slate-800 active:bg-slate-900 disabled:bg-slate-400 disabled:cursor-not-allowed text-white text-sm font-semibold tracking-wide transition-colors focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2"
-      >
-        {isPdfGenerating ? "Generating…" : "Download PDF Summary"}
-      </button>
+      {/* Actions */}
+      <div className="flex flex-col gap-3">
+        <button
+          type="button"
+          onClick={handleExportPDF}
+          disabled={isPdfGenerating}
+          className="w-full py-3.5 px-6 rounded-xl bg-slate-700 hover:bg-slate-800 active:bg-slate-900 disabled:bg-slate-400 disabled:cursor-not-allowed text-white text-sm font-semibold tracking-wide transition-colors focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2"
+        >
+          {isPdfGenerating ? "Generating…" : "Download PDF Summary"}
+        </button>
+        <button
+          type="button"
+          onClick={onStartOver}
+          className="w-full py-3 px-6 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 active:bg-slate-100 text-slate-600 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2"
+        >
+          Start Over
+        </button>
+      </div>
     </div>
   );
 }

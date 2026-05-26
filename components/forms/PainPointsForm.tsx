@@ -86,17 +86,33 @@ function validate(state: FormState): FieldErrors {
 export interface PainPointsFormProps {
   onComplete: (data: PainPoints) => void;
   onBack: () => void;
+  initialValues?: PainPoints;
 }
 
-export default function PainPointsForm({ onComplete, onBack }: PainPointsFormProps) {
-  const [form, setForm] = useState<FormState>({
-    orderProcessingHoursPerDay: "",
-    monthlyProductionErrors: "",
-    inventoryWriteOffPercent: "",
-    manualReportingHoursPerWeek: "",
-    avgDeliveryDelayDays: "",
-    monthlyDelayedOrders: "",
-  });
+function toFormState(v: PainPoints): FormState {
+  return {
+    orderProcessingHoursPerDay: String(v.orderProcessingHoursPerDay),
+    monthlyProductionErrors: String(v.monthlyProductionErrors),
+    inventoryWriteOffPercent: String(v.inventoryWriteOffPercent),
+    manualReportingHoursPerWeek: String(v.manualReportingHoursPerWeek),
+    avgDeliveryDelayDays: String(v.avgDeliveryDelayDays),
+    monthlyDelayedOrders: String(v.monthlyDelayedOrders),
+  };
+}
+
+export default function PainPointsForm({ onComplete, onBack, initialValues }: PainPointsFormProps) {
+  const [form, setForm] = useState<FormState>(
+    initialValues
+      ? toFormState(initialValues)
+      : {
+          orderProcessingHoursPerDay: "",
+          monthlyProductionErrors: "",
+          inventoryWriteOffPercent: "",
+          manualReportingHoursPerWeek: "",
+          avgDeliveryDelayDays: "",
+          monthlyDelayedOrders: "",
+        }
+  );
   const [errors, setErrors] = useState<FieldErrors>({});
   const [attempted, setAttempted] = useState(false);
 
