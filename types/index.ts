@@ -65,6 +65,14 @@ export interface CalculatorInputs {
   implementationAssumptions: ImplementationAssumptions;
 }
 
+export interface CostBreakdown {
+  orderProcessingCost: number;
+  productionErrorCost: number;
+  inventoryWriteOffCost: number;
+  manualReportingCost: number;
+  deliveryDelayCost: number;
+}
+
 export interface ROIOutput {
   currentAnnualCostOfInefficiency: number; // USD
   totalInvestment: number;                  // license midpoint + change mgmt overhead

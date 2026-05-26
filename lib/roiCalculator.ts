@@ -1,5 +1,6 @@
 import {
   CalculatorInputs,
+  CostBreakdown,
   ROIOutput,
 } from "@/types";
 import {
@@ -301,5 +302,41 @@ export function calculateROIOutput(inputs: CalculatorInputs): ROIOutput {
     cumulativeSavingsYear3: savingsYear1 + savingsYear2 + savingsYear3,
     paybackPeriodMonths: calculatePaybackPeriod(inputs),
     roiPercent: calculateROI(inputs),
+  };
+}
+
+// ---------------------------------------------------------------------------
+// calculateCostBreakdown
+// ---------------------------------------------------------------------------
+// Returns the five individual cost drivers that sum to calculateCurrentCost().
+// Used by the results panel to itemize costs without re-implementing the math.
+// ---------------------------------------------------------------------------
+export function calculateCostBreakdown(inputs: CalculatorInputs): CostBreakdown {
+  const { painPoints, companyProfile } = inputs;
+
+  return {
+    orderProcessingCost:
+      painPoints.orderProcessingHoursPerDay *
+      ORDER_PROCESSING_COST_PER_HOUR_USD *
+      WORKING_DAYS_PER_YEAR,
+
+    productionErrorCost:
+      painPoints.monthlyProductionErrors *
+      COST_PER_PRODUCTION_ERROR_USD *
+      12,
+
+    inventoryWriteOffCost:
+      (companyProfile.currentInventoryValue * painPoints.inventoryWriteOffPercent) / 100,
+
+    manualReportingCost:
+      painPoints.manualReportingHoursPerWeek *
+      BLENDED_HOURLY_RATE_USD *
+      WORKING_WEEKS_PER_YEAR,
+
+    deliveryDelayCost:
+      painPoints.avgDeliveryDelayDays *
+      COST_PER_DELIVERY_DELAY_DAY_USD *
+      painPoints.monthlyDelayedOrders *
+      12,
   };
 }
