@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useCalculatorReducer } from "@/lib/useCalculatorReducer";
 import { calculateROIOutput, calculateCostBreakdown } from "@/lib/roiCalculator";
 import { CalculatorInputs } from "@/types";
@@ -28,6 +29,7 @@ function computeRoiData(inputs: CalculatorInputs): RoiData {
 
 export default function Page() {
   const [state, dispatch] = useCalculatorReducer();
+  const [isManualOpen, setIsManualOpen] = useState(false);
   const { currentStep, companyProfile, painPoints, teamSize, implementationAssumptions } = state;
 
   const allComplete =
@@ -58,6 +60,26 @@ export default function Page() {
 
         <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
           <div className="px-6 pt-6 pb-5 border-b border-slate-100">
+            <div className="flex justify-end mb-4">
+              <button
+                type="button"
+                onClick={() => setIsManualOpen(true)}
+                className="flex items-center gap-1.5 text-xs text-slate-500 hover:text-slate-800 transition-colors focus:outline-none"
+              >
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 14 14"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <rect x="2" y="1" width="9" height="12" rx="1" stroke="currentColor" strokeWidth="1.5" />
+                  <path d="M4.5 4.5h5M4.5 7h5M4.5 9.5h3" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" />
+                </svg>
+                User Manual
+              </button>
+            </div>
             <ProgressIndicator currentStep={currentStep} />
           </div>
 
