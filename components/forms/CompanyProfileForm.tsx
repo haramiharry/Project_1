@@ -251,7 +251,7 @@ export default function CompanyProfileForm({ onComplete }: CompanyProfileFormPro
             Current Inventory Value (USD) <span className="text-red-500">*</span>
           </label>
           <p className="text-xs text-slate-400 mb-2">
-            Total value of stock on hand at cost. Used directly in write-off calculations — not derived from revenue.
+            Total value of stock on hand at cost. Used directly in write-off calculations — not derived from revenue. Enter numbers only, no commas or symbols.
           </p>
           <div className="relative">
             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm select-none">
